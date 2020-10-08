@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PosMachineTest {
     @Test
@@ -35,6 +35,6 @@ public class PosMachineTest {
         String actual = posmachine.settle(items);
 
         //then
-        assertSame(expected, actual);
+        assertEquals(expected, actual);
     }
 }
