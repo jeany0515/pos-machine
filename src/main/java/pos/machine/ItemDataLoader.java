@@ -18,6 +18,6 @@ public class ItemDataLoader {
     }
 
     public static List<String> loadCartBarcodes() {
-        return Arrays.asList("ITEM000000", "ITEM000000", "ITEM000000", "ITEM000000", "ITEM000001", "ITEM000001", "ITEM000004");
+        return Arrays.asList("ITEM000000", "ITEM000000", "ITEM000000", "ITEM000000", "ITEM000001", "ITEM000001", "ITEM000004", "ITEM000004-2");
     }
 }
