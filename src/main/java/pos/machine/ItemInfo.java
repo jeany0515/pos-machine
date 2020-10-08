@@ -1,11 +1,11 @@
 package pos.machine;
 
-public class ProductInfo {
+public class ItemInfo {
     private final String barcode;
     private final String name;
     private final double price;
 
-    public ProductInfo(String barcode, String name, double price) {
+    public ItemInfo(String barcode, String name, double price) {
         this.barcode = barcode;
         this.name = name;
         this.price = price;
