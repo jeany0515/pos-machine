@@ -18,6 +18,6 @@ public class PosMachineTest {
                 "Total: 22.40 (yuan)\n" +
                 "**********************";
 
-        assertEquals(expected, posMachine.print(ItemDataLoader.loadCartItems()));
+        assertEquals(expected, posMachine.print(ItemDataLoader.loadCartBarcodes()));
     }
 }

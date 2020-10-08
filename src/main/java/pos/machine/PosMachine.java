@@ -6,16 +6,21 @@ import java.util.*;
 public class PosMachine {
     private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
-    public String print(List<String> items) {
-        Map<String, Integer> itemsWithCount = parse(items);
+    public String print(List<String> barcodes) {
 
-        List<Item> itemsWithDetail = getItemsDetail(itemsWithCount);
+        List<Item> itemsWithDetail = decodeToItems(barcodes);
 
-        List<Item> itemsWithCost = calculateItemsCost(itemsWithDetail);
+        Receipt receipt = calculateCost(itemsWithDetail);
 
-        double totalPrice = calculateTotal(itemsWithCost);
+        return renderReceipt(receipt);
+    }
 
-        return renderReceipt(itemsWithCost, totalPrice);
+    private List<Item> decodeToItems(List<String> barcodes) {
+        Map<String, Integer> barcodesWithCount = parse(barcodes);
+
+        List<Item> itemsWithDetail = getItemsDetail(barcodesWithCount);
+
+        return itemsWithDetail;
     }
 
     private Map<String, Integer> parse(List<String> items) {
@@ -53,6 +58,14 @@ public class PosMachine {
         return itemList;
     }
 
+    private Receipt calculateCost(List<Item> itemsWithDetail) {
+        List<Item> itemsWithCost = calculateItemsCost(itemsWithDetail);
+
+        double totalPrice = calculateTotal(itemsWithCost);
+
+        return new Receipt(itemsWithCost, totalPrice);
+    }
+
     private List<Item> calculateItemsCost(List<Item> itemsWithDetail) {
         List<Item> itemsWithSubtotal = new ArrayList<>(itemsWithDetail);
 
@@ -65,10 +78,10 @@ public class PosMachine {
         return itemsWithSubtotal.stream().mapToDouble(Item::getSubTotal).sum();
     }
 
-    private String renderReceipt(List<Item> itemsWithCost, double totalPrice) {
-        String itemsPart = generateItemsDetail(itemsWithCost);
+    private String renderReceipt(Receipt receipt) {
+        String itemsPart = generateItemsDetail(receipt.getItemDetails());
 
-        return generateReceipt(itemsPart, totalPrice);
+        return generateReceipt(itemsPart, receipt.getTotalPrice());
     }
 
     private String generateItemsDetail(List<Item> itemsWithCost) {
